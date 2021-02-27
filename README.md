@@ -1,4 +1,4 @@
-# Put title of your app here
+# Puppy Adoption App
 
 <!--- Replace <OWNER> with your Github Username and <REPOSITORY> with the name of your repository. -->
 <!--- You can find both of these in the url bar when you open your repository in github. -->
@@ -6,7 +6,7 @@
 
 
 ## :scroll: Description
-<!--- Describe your app in one or two sentences -->
+This app is an app to find foster parents for dogs. If you select a dog from the list, you can see the details of that dog.
 
 
 ## :bulb: Motivation and Context
