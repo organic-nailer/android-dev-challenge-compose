@@ -19,7 +19,6 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +30,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -66,9 +66,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.popUpTo
+import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
@@ -166,11 +166,13 @@ fun DogListTile(data: DogData, navController: NavController) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .clickable(onClick = {
-                        navController.navigate(MainDestinations.DETAIL + "/${data.id}") {
-                            popUpTo(MainDestinations.MAIN) {}
+                    .clickable(
+                        onClick = {
+                            navController.navigate(MainDestinations.DETAIL + "/${data.id}") {
+                                popUpTo(MainDestinations.MAIN) {}
+                            }
                         }
-                    })
+                    )
             ) {
                 Column(
                     modifier = Modifier
@@ -267,8 +269,8 @@ fun DetailView(id: Int, navController: NavController) {
                     painter = painterResource(id = data.imageResource),
                     modifier = Modifier
                         .aspectRatio(9 / 5f)
-                        .fillMaxWidth()
-                        .fillMaxWidth(), contentScale = ContentScale.Crop, contentDescription = ""
+                        .fillMaxWidth(),
+                    contentScale = ContentScale.Crop, contentDescription = ""
                 )
                 Text(
                     data.name,
@@ -321,7 +323,8 @@ fun MyApp() {
             ) {
                 DetailView(it.arguments?.getInt("dogId") ?: -1, navController)
             }
-        })
+        }
+    )
 }
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
