@@ -91,7 +91,8 @@ data class DogData(
 )
 
 object DogDataStore {
-    private const val longLongSentence = "The understanding is a colorful transformator. Fresh, minced pudding is best soaked with melted milk. Core happens when you follow justice so cosmically that whatsoever you are diing is your fear. Confucius says: cheerfully issue is to respect the satori of the monkey's ignorance.Peglegs travel from faiths like proud parrots.Unearthly pull a crewmate."
+    private const val longLongSentence =
+        "The understanding is a colorful transformator. Fresh, minced pudding is best soaked with melted milk. Core happens when you follow justice so cosmically that whatsoever you are diing is your fear. Confucius says: cheerfully issue is to respect the satori of the monkey's ignorance.Peglegs travel from faiths like proud parrots.Unearthly pull a crewmate."
     val dogList = listOf(
         DogData(0, "Ann", R.drawable.dog0, 2, longLongSentence),
         DogData(1, "Innu", R.drawable.dog1, 4, longLongSentence),
@@ -118,9 +119,11 @@ fun DogList(navController: NavController) {
         topBar = {
             TopAppBar(
                 title = { Text("Dog") },
-                navigationIcon = { IconButton(onClick = {  }) {
-                    Icon(Icons.Filled.Menu, contentDescription = "menu")
-                } },
+                navigationIcon = {
+                    IconButton(onClick = { }) {
+                        Icon(Icons.Filled.Menu, contentDescription = "menu")
+                    }
+                },
                 backgroundColor = Blue
             )
         }
@@ -130,11 +133,13 @@ fun DogList(navController: NavController) {
         ) {
             list.forEach { m ->
                 DogListTile(data = m, navController)
-                Box(modifier = Modifier
-                    .height(1.dp)
-                    .fillMaxWidth(0.9f)
-                    .background(Color(0x40ffffff))
-                    .padding(top = 4.dp, start = 16.dp, end = 16.dp))
+                Box(
+                    modifier = Modifier
+                        .height(1.dp)
+                        .fillMaxWidth(0.9f)
+                        .background(Color(0x40ffffff))
+                        .padding(top = 4.dp, start = 16.dp, end = 16.dp)
+                )
             }
         }
     }
@@ -184,7 +189,7 @@ fun DogListTile(data: DogData, navController: NavController) {
                         Image(
                             painter = painterResource(data.imageResource),
                             contentDescription = "",
-                            contentScale= ContentScale.Crop,
+                            contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .fillMaxSize()
                         )
@@ -208,7 +213,8 @@ fun DogListTile(data: DogData, navController: NavController) {
                                     verticalArrangement = Arrangement.Bottom,
                                     modifier = Modifier.fillMaxSize()
                                 ) {
-                                    Text(data.name,
+                                    Text(
+                                        data.name,
                                         style = typography.h3,
                                         modifier = Modifier.padding(8.dp)
                                     )
@@ -241,27 +247,29 @@ fun DetailView(id: Int, navController: NavController) {
         topBar = {
             TopAppBar(
                 title = { Text("Detail") },
-                navigationIcon = { IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "back")
-                } },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(Icons.Filled.ArrowBack, contentDescription = "back")
+                    }
+                },
                 backgroundColor = Blue
             )
         }
     ) {
         val typography = MaterialTheme.typography
-        if(data == null) {
+        if (data == null) {
             Text(text = "Not found", style = typography.h6)
-        }
-        else {
+        } else {
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Image(
                     painter = painterResource(id = data.imageResource),
                     modifier = Modifier
-                    .aspectRatio(9 / 5f)
-                    .fillMaxWidth()
-                    .fillMaxWidth(), contentScale= ContentScale.Crop, contentDescription = "")
+                        .aspectRatio(9 / 5f)
+                        .fillMaxWidth()
+                        .fillMaxWidth(), contentScale = ContentScale.Crop, contentDescription = ""
+                )
                 Text(
                     data.name,
                     style = typography.h2,
@@ -271,14 +279,16 @@ fun DetailView(id: Int, navController: NavController) {
                 Text(
                     "Age: ${data.age}",
                     style = typography.h6,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(4.dp),
                     textAlign = TextAlign.Center
                 )
                 Text(
                     data.description,
                     style = typography.body2,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(16.dp),
                     textAlign = TextAlign.Center
                 )
@@ -305,7 +315,10 @@ fun MyApp() {
                     DogList(navController)
                 }
             }
-            composable(MainDestinations.DETAIL + "/{dogId}", arguments = listOf(navArgument("dogId") { type = NavType.IntType})) {
+            composable(
+                MainDestinations.DETAIL + "/{dogId}",
+                arguments = listOf(navArgument("dogId") { type = NavType.IntType })
+            ) {
                 DetailView(it.arguments?.getInt("dogId") ?: -1, navController)
             }
         })
